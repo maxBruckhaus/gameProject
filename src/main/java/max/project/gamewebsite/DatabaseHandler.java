@@ -16,9 +16,10 @@ public class DatabaseHandler {
             "CREATE TABLE IF NOT EXISTS games(" +
                     "id INT NOT NULL AUTO_INCREMENT, " +
                     "title VARCHAR(255) NOT NULL, " +
-                    "genre VARCHAR(255) NOT NULL, " +
-                    "developer VARCHAR(255) NOT NULL, " +
+                    "description TEXT NOT NULL, " +
                     "price DOUBLE NOT NULL, " +
+                    "release_date VARCHAR(255) NOT NULL, " +
+                    "platform VARCHAR(255) NOT NULL, " +
                     "PRIMARY KEY (id));";
 
     @Autowired

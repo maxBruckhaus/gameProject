@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,31 +33,34 @@ public class GameController {
         return "searchResults";
     }
 
-    @GetMapping("/")
-    public String index(Model model) {
-        // Retrieve data from the database using JDBC
-        List<Game> games = new ArrayList<>();
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "password");
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM games");
-            while (rs.next()) {
-                Game game = new Game();
-                game.setId(rs.getInt("id"));
-                game.setTitle(rs.getString("title"));
-                game.setGenre(rs.getString("genre"));
-                game.setPrice(rs.getDouble("price"));
-                games.add(game);
-            }
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        // Add the data to the model for the view to use
-        model.addAttribute("games", games);
-
-        // Return the name of the view to render
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String index(Model model) {
+//        // Retrieve data from the database using JDBC
+//        List<Game> games = new ArrayList<>();
+//        try {
+//            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "password");
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery("SELECT * FROM games");
+//            while (rs.next()) {
+//                Game game = new Game();
+//                game.setId(rs.getInt("id"));
+//                game.setTitle(rs.getString("title"));
+//                game.setDescription(rs.getString("description"));
+//                game.setPrice(rs.getDouble("99.99"));
+//                LocalDate currDate = LocalDate.now();
+//                game.setReleaseDate(currDate);
+//                game.setPlatform("platform");
+//                games.add(game);
+//            }
+//            conn.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Add the data to the model for the view to use
+//        model.addAttribute("games", games);
+//
+//        // Return the name of the view to render
+//        return "index";
+//    }
 }

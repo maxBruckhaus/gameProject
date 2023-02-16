@@ -1,11 +1,14 @@
 package max.project.gamewebsite;
 
+import java.time.LocalDate;
+
 public class Game {
 
     private int id;
     private String title;
-    private String developer;
-    private String genre;
+    private String description;
+    private String platform;
+    private LocalDate releaseDate;
     private double price;
 
     public int getId() {
@@ -24,20 +27,28 @@ public class Game {
         this.title = title;
     }
 
-    public String getDeveloper() {
-        return developer;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDeveloper(String developer) {
-        this.developer = developer;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public double getPrice() {
@@ -55,8 +66,9 @@ public class Game {
     @Override
     public String toString() {
         return  "Game: " + title + "\n" +
-                "Developer: " + developer + "\n" +
-                "Genre: " + genre + "\n" +
-                "Price: " + price;
+                "Description: " + description + "\n" +
+                "Price: " + price + "\n" +
+                "Release Date: " + releaseDate + "\n" +
+                "Platform: " + platform;
     }
 }
