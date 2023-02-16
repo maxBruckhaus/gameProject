@@ -13,9 +13,8 @@ public class DatabaseHandler {
             "CREATE DATABASE IF NOT EXISTS video_games;";
 
     private static final String CREATE_GAMES_SQL =
-            "CREATE TABLE games (" +
+            "CREATE TABLE IF NOT EXISTS games(" +
                     "id INT NOT NULL AUTO_INCREMENT, " +
-                    "name VARCHAR(255) NOT NULL, " +
                     "title VARCHAR(255) NOT NULL, " +
                     "genre VARCHAR(255) NOT NULL, " +
                     "developer VARCHAR(255) NOT NULL, " +

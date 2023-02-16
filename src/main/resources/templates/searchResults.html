@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+  <head>
+    <title>Search Results</title>
+  </head>
+  <body>
+    <h1>Search Results</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="game : ${games}">
+            <td th:text="${game.title}"></td>
+            <td th:text="${game.price}"></td>
+          </tr>
+        </tbody>
+      </table>
+  </body>
+</html>
