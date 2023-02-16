@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Game Homepage</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .form-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+      }
+      .form-row label {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Video Games</h1>
+      <form th:action="@{/search}" method="get">
+        <div class="form-row">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name">
+        </div>
+        <div class="form-row">
+          <label for="price">Price:</label>
+          <select id="price" name="price">
+            <option value="all">All Prices</option>
+            <option value="10">Under $10</option>
+            <option value="20">Under $20</option>
+            <option value="50">Under $50</option>
+            <option value="50+">$50 and Over</option>
+          </select>
+        </div>
+        <button type="submit">Search</button>
+      </form>
+  </body>
+</html>
