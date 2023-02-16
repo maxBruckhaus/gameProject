@@ -19,6 +19,6 @@ public class GameWebsiteApplication {
     @PostConstruct
     public void init() {
         dbHandler.createDatabase();
-        dbHandler.createTable();
+        dbHandler.createGamesTable();
     }
 }
