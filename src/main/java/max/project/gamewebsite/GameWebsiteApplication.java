@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GameWebsiteApplication {
     private DatabaseHandler dbHandler;
+    private String filePath = "input/games1.json";
 
     public GameWebsiteApplication(DatabaseHandler dbHandler) {
         this.dbHandler = dbHandler;
@@ -20,5 +21,8 @@ public class GameWebsiteApplication {
     public void init() {
         dbHandler.createDatabase();
         dbHandler.createGamesTable();
+        Games games = new Games();
+        GameLoader gameLoader = new GameLoader(dbHandler, games);
+        gameLoader.loadGames(filePath);
     }
 }

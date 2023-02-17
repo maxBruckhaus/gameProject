@@ -5,8 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +45,7 @@ public class GameController {
 //                game.setTitle(rs.getString("title"));
 //                game.setDescription(rs.getString("description"));
 //                game.setPrice(rs.getDouble("99.99"));
-//                LocalDate currDate = LocalDate.now();
-//                game.setReleaseDate(currDate);
+//                game.setReleaseDate("2017-11-08");
 //                game.setPlatform("platform");
 //                games.add(game);
 //            }

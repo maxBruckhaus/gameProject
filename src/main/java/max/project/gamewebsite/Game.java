@@ -1,21 +1,22 @@
 package max.project.gamewebsite;
 
-import java.time.LocalDate;
+import com.google.gson.annotations.SerializedName;
 
 public class Game {
 
-    private int id;
+    private String id;
+    @SerializedName("name")
     private String title;
     private String description;
     private String platform;
-    private LocalDate releaseDate;
-    private double price;
+    private String releaseDate;
+    private String price;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,19 +44,19 @@ public class Game {
         this.platform = platform;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
