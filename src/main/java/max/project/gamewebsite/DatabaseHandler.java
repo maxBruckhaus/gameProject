@@ -1,8 +1,12 @@
 package max.project.gamewebsite;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class DatabaseHandler {
@@ -24,6 +28,11 @@ public class DatabaseHandler {
     private static final String ADD_GAME_SQL =
             "REPLACE INTO games (game_id, title, description, price, release_date, platform) " +
                     "VALUES (?, ?, ?, ?, ?, ?);";
+
+    private static final String GET_ALL_GAMES_SQL =
+            "SELECT * FROM games;";
+
+    private List<Game> gameList;
 
     @Autowired
     public DatabaseHandler(JdbcTemplate jdbcTemplate) {
@@ -65,5 +74,23 @@ public class DatabaseHandler {
             }
         }
         return true;
+    }
+
+    public Status getAllGames() {
+        Status status = Status.ERROR;
+
+        try {
+            gameList = jdbcTemplate.query(GET_ALL_GAMES_SQL, new BeanPropertyRowMapper<>(Game.class));
+            status = Status.OK;
+        } catch (Exception ex) {
+            status = Status.SQL_EXCEPTION;
+            ex.printStackTrace();
+        }
+
+        return status;
+    }
+
+    public List<Game> getGameResults() {
+        return Collections.unmodifiableList(gameList);
     }
 }

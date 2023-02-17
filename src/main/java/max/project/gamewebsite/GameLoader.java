@@ -29,10 +29,6 @@ public class GameLoader {
             JsonElement jElement = parser.parse(fileData);
             JsonArray jsonArr = jElement.getAsJsonArray();
             Game[] gamesArr = gson.fromJson(jsonArr, Game[].class);
-            for (Game g : gamesArr) {
-                System.out.println("g = " + g);
-            }
-
             games.populateGameMap(gamesArr);
             if (!dbHandler.populateGamesSQL(gamesArr)){
                 return false;

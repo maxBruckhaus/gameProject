@@ -15,7 +15,22 @@ public class GameController {
     private DatabaseHandler dbHandler;
 
     @GetMapping("/")
-    public String home() {
+    public String showHomePage(Model model) {
+        List<Game> gameList = new ArrayList<>();
+        Status allGamesStatus = dbHandler.getAllGames();
+
+        try{
+            if (allGamesStatus == Status.OK){
+                gameList = dbHandler.getGameResults();
+            }else{
+                System.out.println("Error: Unable to get all games.");
+                System.out.println(allGamesStatus);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        model.addAttribute("gameList", gameList);
         return "home";
     }
 
