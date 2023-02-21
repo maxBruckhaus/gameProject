@@ -2,6 +2,34 @@
 <html xmlns:th="http://thymeleaf.org">
   <head>
     <title>Search Results</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      table {
+        border-collapse: collapse;
+        width: 80%;
+        margin-top: 20px;
+      }
+
+      th, td {
+        text-align: left;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #084a79;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #d2d2d2;
+      }
+    </style>
   </head>
   <body>
     <h1>Search Results</h1>
@@ -9,13 +37,19 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Description</th>
+            <th>Platform</th>
+            <th>Release Date</th>
             <th>Price</th>
           </tr>
         </thead>
         <tbody>
-          <tr th:each="game : ${games}">
-            <td th:text="${game.title}"></td>
-            <td th:text="${game.price}"></td>
+          <tr th:each="game : ${searchResults}">
+            <td th:text="${game.getTitle()}"></td>
+            <td th:text="${game.getDescription()}"></td>
+            <td th:text="${game.getPlatform()}"></td>
+            <td th:text="${game.getReleaseDate()}"></td>
+            <td th:text="${game.getPrice()}"></td>
           </tr>
         </tbody>
       </table>

@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +32,20 @@ public class DatabaseHandler {
 
     private static final String GET_ALL_GAMES_SQL =
             "SELECT * FROM games;";
+
+    private static final String SEARCH_GAMES_BY_NAME_SQL =
+            "SELECT * FROM games " +
+                    "WHERE title LIKE ?";
+
+    private static final String SEARCH_GAMES_LESS_PRICE_SQL =
+            "SELECT * FROM games " +
+                    "WHERE title LIKE ? "+
+                    "AND price < ?;";
+
+    private static final String SEARCH_GAMES_GREATER_PRICE_SQL =
+            "SELECT * FROM games " +
+                    "WHERE title LIKE ? " +
+                    "AND price >= ?;";
 
     private List<Game> gameList;
 
@@ -80,7 +95,45 @@ public class DatabaseHandler {
         Status status = Status.ERROR;
 
         try {
+            gameList = new ArrayList<>();
             gameList = jdbcTemplate.query(GET_ALL_GAMES_SQL, new BeanPropertyRowMapper<>(Game.class));
+            status = Status.OK;
+        } catch (Exception ex) {
+            status = Status.SQL_EXCEPTION;
+            ex.printStackTrace();
+        }
+
+        return status;
+    }
+
+    public Status findGamesByNameAndPrice(String name, String price) {
+        Status status = Status.ERROR;
+        int priceInt = 0;
+
+        if (price.equals("50+")) {
+            priceInt = 50;
+        } else if (!price.equals("all")){
+            priceInt = Integer.parseInt(price);
+        }
+
+        try {
+            gameList = new ArrayList<>();
+            int finalPriceInt = priceInt;
+            switch (price) {
+                case "all" -> gameList = jdbcTemplate.query(SEARCH_GAMES_BY_NAME_SQL, ps -> {
+                    ps.setString(1, "%" + name + "%");
+                }, new BeanPropertyRowMapper<>(Game.class));
+
+                case "10", "20", "50" -> gameList = jdbcTemplate.query(SEARCH_GAMES_LESS_PRICE_SQL, ps -> {
+                    ps.setString(1, "%" + name + "%");
+                    ps.setInt(2, finalPriceInt);
+                }, new BeanPropertyRowMapper<>(Game.class));
+
+                case "50+" -> gameList = jdbcTemplate.query(SEARCH_GAMES_GREATER_PRICE_SQL, ps -> {
+                    ps.setString(1, "%" + name + "%");
+                    ps.setInt(2, finalPriceInt);
+                }, new BeanPropertyRowMapper<>(Game.class));
+            }
             status = Status.OK;
         } catch (Exception ex) {
             status = Status.SQL_EXCEPTION;
